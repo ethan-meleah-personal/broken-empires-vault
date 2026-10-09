@@ -17,7 +17,15 @@ export const DEFAULT_SUPPLY_DIE: SupplyDie = 'd12';
 
 /* ======================= SKILL CONSTANTS ===================== */
 
-export const COMBAT_SKILLS = ['dodge', 'lightMelee', 'mediumMelee', 'heavyMelee', 'might', 'missile', 'thrown'] as const;
+export const COMBAT_SKILLS = [
+  'dodge',
+  'lightMelee',
+  'mediumMelee',
+  'heavyMelee',
+  'might',
+  'missile',
+  'thrown',
+] as const;
 
 export const MELEE_SKILLS = ['lightMelee', 'mediumMelee', 'heavyMelee'] as const;
 export const RANGED_SKILLS = ['missile', 'thrown'] as const;
@@ -36,7 +44,17 @@ export const ADVENTURING_SKILLS = [
   'willpower',
 ] as const;
 
-export const SOCIAL_SKILLS = ['deceive', 'insight', 'inspire', 'intimidate', 'perform', 'persuade', 'protocol', 'seduce', 'wit'] as const;
+export const SOCIAL_SKILLS = [
+  'deceive',
+  'insight',
+  'inspire',
+  'intimidate',
+  'perform',
+  'persuade',
+  'protocol',
+  'seduce',
+  'wit',
+] as const;
 
 export const LORE_SKILLS = [
   'ancientLore',
@@ -59,7 +77,18 @@ export type FixedSkill = (typeof ALL_FIXED_SKILLS)[number];
 /* ======================= MAGIC CONSTANTS ===================== */
 
 export const BINDS = ['change', 'conjure', 'control', 'destroy', 'witness'] as const;
-export const STRANDS = ['air', 'beast', 'body', 'earth', 'fire', 'plant', 'spheres', 'spirit', 'thought', 'water'] as const;
+export const STRANDS = [
+  'air',
+  'beast',
+  'body',
+  'earth',
+  'fire',
+  'plant',
+  'spheres',
+  'spirit',
+  'thought',
+  'water',
+] as const;
 
 /* ======================= HIT LOCATION CONSTANTS ===================== */
 
