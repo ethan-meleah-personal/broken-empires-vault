@@ -17,6 +17,8 @@ export const DEFAULT_SUPPLY_DIE: SupplyDie = 'd12';
 
 /* ======================= SKILL CONSTANTS ===================== */
 
+export const DEFAULT_SKILL_VALUE = 20;
+
 export const COMBAT_SKILLS = [
   'dodge',
   'lightMelee',
