@@ -1,16 +1,9 @@
 import { HydratedDocument, InferSchemaType, Schema } from 'mongoose';
 import { ITEMS_COLLECTION } from '../constants/vault.constants';
 import { supplyDieField } from '../helpers/vaultHelpers';
+import { skillBonusSchema } from '../shared/skillBonus.schema';
 
 export const ITEM_DISCRIMINATOR_KEY = 'category';
-
-const itemSkillBonusSchema = new Schema(
-  {
-    skillName: { type: String, required: true },
-    bonusValue: { type: Number, required: true },
-  },
-  { _id: false },
-);
 
 export const itemSchema = new Schema(
   {
@@ -19,7 +12,7 @@ export const itemSchema = new Schema(
     description: { type: String },
     encumbrance: { type: Number, default: 0, min: 0 },
     value: { type: Number, default: 0, min: 0 },
-    itemSkillBonus: { type: [itemSkillBonusSchema], default: [] },
+    skillBonus: { type: [skillBonusSchema], default: [] },
     itemUsageDice: supplyDieField(),
     itemUses: { type: Number, default: 0, min: 0 },
   },
