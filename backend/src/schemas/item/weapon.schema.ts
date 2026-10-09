@@ -21,11 +21,11 @@ weaponSchema.pre('validate', function () {
   }
 
   if (this.meleeSkill && this.reach == null) {
-    this.invalidate('reach', 'A melee weapon needs a reach.')
+    this.invalidate('reach', 'A melee weapon needs a reach.');
   }
 
   if (this.rangedSkill && !this.range) {
-    this.invalidate('range', 'A ranged weapon needs a range.')
+    this.invalidate('range', 'A ranged weapon needs a range.');
   }
 });
 

@@ -5,9 +5,7 @@ import { Greeting } from './greeting.schema';
 
 @Injectable()
 export class AppService implements OnModuleInit {
-  constructor(
-    @InjectModel(Greeting.name) private readonly greetingModel: Model<Greeting>,
-  ) {}
+  constructor(@InjectModel(Greeting.name) private readonly greetingModel: Model<Greeting>) {}
 
   // Runs once at startup: insert a greeting if the collection is empty
   async onModuleInit() {

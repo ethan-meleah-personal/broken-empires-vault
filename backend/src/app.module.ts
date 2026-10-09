@@ -17,9 +17,7 @@ import { Greeting, GreetingSchema } from './greeting.schema';
         uri: configService.getOrThrow<string>('MONGODB_URI'),
       }),
     }),
-    MongooseModule.forFeature([
-      { name: Greeting.name, schema: GreetingSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Greeting.name, schema: GreetingSchema }]),
   ],
   controllers: [AppController],
   providers: [AppService],

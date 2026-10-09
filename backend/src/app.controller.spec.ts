@@ -17,10 +17,7 @@ describe('AppController', () => {
 
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [
-        AppService,
-        { provide: getModelToken(Greeting.name), useValue: greetingModel },
-      ],
+      providers: [AppService, { provide: getModelToken(Greeting.name), useValue: greetingModel }],
     }).compile();
 
     appController = app.get<AppController>(AppController);
