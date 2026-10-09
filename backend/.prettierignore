@@ -1,0 +1,18 @@
+# Package managers & dependencies
+node_modules/
+.npm/
+
+# Angular / Node build outputs
+dist/
+.angular/
+out-of-memory.log
+
+# System & IDE configs
+.vscode/
+.idea/
+.git/
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

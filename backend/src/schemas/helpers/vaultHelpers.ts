@@ -16,9 +16,6 @@ export function subdocWithDefault<S extends Schema>(schema: S, initial: () => ob
   };
 }
 
-export function keyedFields<const K extends readonly string[], F>(
-  keys: K,
-  makeField: (key: K[number]) => F,
-): { [P in K[number]]: F } {
+export function keyedFields<const K extends readonly string[], F>(keys: K, makeField: (key: K[number]) => F): { [P in K[number]]: F } {
   return Object.fromEntries(keys.map((key) => [key, makeField(key)])) as { [P in K[number]]: F };
 }
