@@ -1,5 +1,5 @@
 import { InferSchemaType, Schema } from 'mongoose';
-import { MELEE_SKILLS, RANGED_SKILLS } from '../constants/vault.constants';
+import { MELEE_SKILLS, RANGED_SKILLS } from '../../common/constants/vault.constants';
 
 export const weaponSchema = new Schema({
   meleeSkill: { type: String, enum: MELEE_SKILLS },

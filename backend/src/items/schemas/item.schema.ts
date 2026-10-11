@@ -1,7 +1,7 @@
 import { HydratedDocument, InferSchemaType, Schema } from 'mongoose';
-import { ITEMS_COLLECTION } from '../constants/vault.constants';
-import { supplyDieField } from '../helpers/vaultHelpers';
-import { skillBonusSchema } from '../shared/skillBonus.schema';
+import { ITEMS_COLLECTION } from '../../common/constants/vault.constants';
+import { supplyDieField } from '../../common/helpers/vaultHelpers';
+import { skillBonusSchema } from '../../common/schemas/skillBonus.schema';
 
 export const ITEM_DISCRIMINATOR_KEY = 'category';
 

@@ -7,9 +7,9 @@
  */
 import 'dotenv/config';
 import mongoose from 'mongoose';
-import { MODEL_NAMES } from '../src/schemas/constants/vault.constants';
-import { characterSchema } from '../src/schemas/character/character.schema';
-import { userSchema } from '../src/schemas/user/user.schema';
+import { MODEL_NAMES } from '../src/common/constants/vault.constants';
+import { characterSchema } from '../src/characters/schemas/character.schema';
+import { userSchema } from '../src/users/schemas/user.schema';
 
 const TEST_USERNAME = 'schema-test-user';
 const TEST_CHARACTER_NAME = 'Schema Test Character';

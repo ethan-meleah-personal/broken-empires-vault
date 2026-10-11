@@ -1,5 +1,5 @@
 import { HydratedDocument, InferSchemaType, Schema } from 'mongoose';
-import { MODEL_NAMES } from '../constants/vault.constants';
+import { MODEL_NAMES } from '../../common/constants/vault.constants';
 
 export const userSchema = new Schema(
   {

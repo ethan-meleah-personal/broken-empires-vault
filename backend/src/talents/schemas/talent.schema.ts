@@ -1,6 +1,6 @@
 import { HydratedDocument, InferSchemaType, Schema } from 'mongoose';
-import { MODEL_NAMES } from '../constants/vault.constants';
-import { skillBonusSchema } from '../shared/skillBonus.schema';
+import { MODEL_NAMES } from '../../common/constants/vault.constants';
+import { skillBonusSchema } from '../../common/schemas/skillBonus.schema';
 
 export const talentSchema = new Schema({
   name: { type: String, required: true, trim: true, unique: true },

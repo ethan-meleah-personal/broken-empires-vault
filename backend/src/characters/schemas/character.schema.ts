@@ -9,8 +9,8 @@ import {
     MODEL_NAMES,
     SOCIAL_SKILLS,
     STRANDS,
-} from '../constants/vault.constants'
-import { keyedFields, subdocWithDefault, supplyDieField } from '../helpers/vaultHelpers'
+} from '../../common/constants/vault.constants'
+import { keyedFields, subdocWithDefault, supplyDieField } from '../../common/helpers/vaultHelpers'
 import {
   dynamicSkillSchema,
   goalSchema,
