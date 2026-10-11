@@ -1,7 +1,7 @@
 import { InferSchemaType, Schema } from 'mongoose';
-import { ARMOR_REGIONS, HIT_LOCATION_KEYS } from '../constants/vault.constants';
-import { MODEL_NAMES } from '../constants/vault.constants';
-import { keyedFields, subdocWithDefault } from '../helpers/vaultHelpers';
+import { ARMOR_REGIONS, HIT_LOCATION_KEYS } from '../../common/constants/vault.constants';
+import { MODEL_NAMES } from '../../common/constants/vault.constants';
+import { keyedFields, subdocWithDefault } from '../../common/helpers/vaultHelpers';
 
 const armorPenaltySchema = new Schema(
   {

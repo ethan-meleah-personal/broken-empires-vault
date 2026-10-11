@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
-import { DEFAULT_SKILL_VALUE } from "../constants/vault.constants";
-import { MODEL_NAMES } from "../constants/vault.constants";
+import { DEFAULT_SKILL_VALUE } from "../../common/constants/vault.constants";
+import { MODEL_NAMES } from "../../common/constants/vault.constants";
 
 /* ========= SKILL SUBSCHEMAS ========= */
 
