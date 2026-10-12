@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -65,7 +65,7 @@ export class UsersService {
     }
   }
 
-  async findOneUser(id: string) {
+  async findOneUser(id: Types.ObjectId) {
     let user: UserDocument | null;
     try {
       user = await this.userModel.findById(id).exec();
@@ -87,7 +87,8 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+  // NOTE FOR LATER - MAKE SURE THAT ONLY USERS WHO ACTUALLY *ARE* THE USERS CAN PATCH USERS
+  async updateUser(id: Types.ObjectId, updateUserDto: UpdateUserDto) {
     const changes: Partial<Pick<User, 'email' | 'username' | 'passwordHash'>> = {};
     if (updateUserDto.email !== undefined) changes.email = updateUserDto.email;
     if (updateUserDto.username !== undefined) changes.username = updateUserDto.username;
@@ -107,7 +108,8 @@ export class UsersService {
     return user;
   }
 
-  async removeUser(id: string) {
+  // NOTE FOR LATER - MAKE SURE THAT ONLY USERS WHO ACTUALLY *ARE* THE USERS CAN DELETE USERS
+  async removeUser(id: Types.ObjectId) {
     let deletedCount: number;
     try {
       ({ deletedCount } = await this.userModel.deleteOne({ _id: id }).exec());

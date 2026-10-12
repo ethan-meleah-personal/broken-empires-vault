@@ -9,7 +9,6 @@ export class CreateUserDto {
     @MaxLength(32)
     username: string;
 
-    // bcrypt only uses the first 72 bytes, so cap the length
     @IsString()
     @MinLength(8)
     @MaxLength(72)

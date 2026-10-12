@@ -7,7 +7,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
-  // whitelist strips unknown fields so clients can't inject extra properties
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   if (process.env.CORS_ORIGIN) {
