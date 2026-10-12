@@ -8,7 +8,6 @@ export const ITEM_DISCRIMINATOR_KEY = 'category';
 export const itemSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
-    itemType: { type: String, required: true },
     description: { type: String },
     encumbrance: { type: Number, default: 0, min: 0 },
     value: { type: Number, default: 0, min: 0 },
