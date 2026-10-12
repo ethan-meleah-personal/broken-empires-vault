@@ -6,6 +6,9 @@ import { AppService } from './app.service';
 import { Greeting, GreetingSchema } from './greeting.schema';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CharactersModule } from './characters/characters.module';
+import { ItemsModule } from './items/items.module';
+import { TalentsModule } from './talents/talents.module';
 
 @Module({
   imports: [
@@ -22,6 +25,9 @@ import { UsersModule } from './users/users.module';
     MongooseModule.forFeature([{ name: Greeting.name, schema: GreetingSchema }]),
     AuthModule,
     UsersModule,
+    TalentsModule,
+    ItemsModule,
+    CharactersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

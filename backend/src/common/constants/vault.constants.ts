@@ -5,6 +5,25 @@ export const MODEL_NAMES = {
   CHARACTER: 'Character',
   TALENT: 'Talent',
   ITEM: 'Item',
+  WEAPON: 'Weapon',
+  ARMOR: 'Armor',
+  SHIELD: 'Shield',
+  CONSUMABLE: 'consumable',
+  THREAD: 'thread',
+  VALUABLE: 'valuable'
+} as const;
+
+/* ======================= ITEM CATEGORIES ===================== */
+
+// Values stored in each item's `category` (discriminator key) field.
+export const ITEM_CATEGORIES = {
+  // TODO(human): define WEAPON, ARMOR and SHIELD as the strings stored in the database
+  'WEAPON': 'weapon',
+  'ARMOR': 'armor',
+  'SHIELD': 'shield',
+  'CONSUMABLE': 'consumable',
+  'THREAD': 'thread',
+  'VALUABLE': 'valuable',
 } as const;
 
 export const ITEMS_COLLECTION = 'items';
