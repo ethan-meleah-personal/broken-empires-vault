@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { UserDocument } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MODEL_NAMES } from '../common/constants/vault.constants';
@@ -10,7 +10,7 @@ import { MODEL_NAMES } from '../common/constants/vault.constants';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(MODEL_NAMES.USER) private userModel: Model<UserDocument>
+    @InjectModel(MODEL_NAMES.USER) private userModel: Model<User>
   ) {}
 
   create(createUserDto: CreateUserDto) {
@@ -19,7 +19,7 @@ export class UsersService {
 
   findAll() {
     try {
-      let allUsers = this.userModel.find().select('-password');
+      let allUsers = this.userModel.find();
       return allUsers;
     } catch (error) {
       throw new InternalServerErrorException('Failed to retrieve users');
