@@ -5,7 +5,7 @@ export const userSchema = new Schema(
   {
     email: { type: String, trim: true, lowercase: true, required: true, unique: true },
     username: { type: String, trim: true, lowercase: true, required: true, unique: true },
-    password: { type: String, required: true, select: false },
+    passwordHash: { type: String, required: true, select: false },
     characters: { type: [{ type: Schema.Types.ObjectId, ref: MODEL_NAMES.CHARACTER }], default: [] },
   },
   { timestamps: true },

@@ -109,7 +109,7 @@ function validationError(doc: { validate(): Promise<unknown> }) {
 async function validateInMemory() {
   console.log('--- In-memory validation (no database) ---');
 
-  const user = new UserModel({ username: '  Test-User  ', email: '  Bob@X.com ', password: 'x' });
+  const user = new UserModel({ username: '  Test-User  ', email: '  Bob@X.com ', passwordHash: 'x' });
   check('valid user passes', !(await validationError(user)));
   check('email is trimmed + lowercased', user.email === 'bob@x.com', `got "${user.email}"`);
   check('username is trimmed + lowercased', user.username === 'test-user', `got "${user.username}"`);
@@ -207,7 +207,7 @@ async function save() {
     new ValuableModel(testValuable()).save(),
   ]);
 
-  const user = await UserModel.create({ username: TEST_USERNAME, email: 'schema-test@example.com', password: 'not-a-real-hash' });
+  const user = await UserModel.create({ username: TEST_USERNAME, email: 'schema-test@example.com', passwordHash: 'not-a-real-hash' });
   const character = buildTestCharacter(user._id);
   character.talents.push(talent._id, advancedTalent._id);
   character.inventory!.items.push(
@@ -227,7 +227,7 @@ async function save() {
   check('user.characters populates the character', populated?.bio?.name === TEST_CHARACTER_NAME);
   check(
     'password is hidden by default',
-    (await UserModel.findById(user._id).lean())?.password === undefined,
+    (await UserModel.findById(user._id).lean())?.passwordHash === undefined,
   );
 
   const loadedCharacter = await CharacterModel.findById(character._id)

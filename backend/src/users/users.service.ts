@@ -1,40 +1,120 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
+import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { MODEL_NAMES } from '../common/constants/vault.constants';
 
+const SALT_ROUNDS = 10;
+const DUPLICATE_KEY_ERROR = 11000;
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
+
   constructor(
     @InjectModel(MODEL_NAMES.USER) private userModel: Model<User>
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  private hashPassword(password: string) {
+    return bcrypt.hash(password, SALT_ROUNDS);
   }
 
-  findAll() {
+  private handleError(error: unknown, action: string): never {
+    if ((error as { code?: number })?.code === DUPLICATE_KEY_ERROR) {
+      throw new ConflictException('Email or username already in use');
+    }
+    this.logger.error(`Failed to ${action}`, error instanceof Error ? error.stack : String(error));
+    throw new InternalServerErrorException(`Failed to ${action}`);
+  }
+
+  async createUser(createUserDto: CreateUserDto) {
     try {
-      let allUsers = this.userModel.find();
-      return allUsers;
+      const passwordHash = await this.hashPassword(createUserDto.password);
+
+      const newUser = await this.userModel.create({
+        username: createUserDto.username,
+        email: createUserDto.email,
+        passwordHash,
+      });
+      this.logger.log(`User created: ${newUser.id}`);
+
+      return {
+        id: newUser.id,
+        email: newUser.email,
+        username: newUser.username,
+      };
     } catch (error) {
-      throw new InternalServerErrorException('Failed to retrieve users');
+      this.handleError(error, 'create user');
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findAllUsers() {
+    try {
+      return await this.userModel.find().exec();
+    } catch (error) {
+      this.handleError(error, 'find users');
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findOneUser(id: string) {
+    let user: UserDocument | null;
+    try {
+      user = await this.userModel.findById(id).exec();
+    } catch (error) {
+      this.handleError(error, 'find user');
+    }
+    if (!user) throw new NotFoundException('User not found');
+    return user;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async findByEmailForAuth(email: string) {
+    try {
+      return await this.userModel
+        .findOne({ email: email.toLowerCase() })
+        .select('+passwordHash')
+        .exec();
+    } catch (error) {
+      this.handleError(error, 'find user');
+    }
+  }
+
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    const changes: Partial<Pick<User, 'email' | 'username' | 'passwordHash'>> = {};
+    if (updateUserDto.email !== undefined) changes.email = updateUserDto.email;
+    if (updateUserDto.username !== undefined) changes.username = updateUserDto.username;
+
+    let user: UserDocument | null;
+    try {
+      if (updateUserDto.password !== undefined) {
+        changes.passwordHash = await this.hashPassword(updateUserDto.password);
+      }
+      user = await this.userModel
+        .findByIdAndUpdate(id, { $set: changes }, { new: true, runValidators: true })
+        .exec();
+    } catch (error) {
+      this.handleError(error, 'update user');
+    }
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async removeUser(id: string) {
+    let deletedCount: number;
+    try {
+      ({ deletedCount } = await this.userModel.deleteOne({ _id: id }).exec());
+    } catch (error) {
+      this.handleError(error, 'delete user');
+    }
+    if (deletedCount === 0) throw new NotFoundException('User not found');
+    return { deleted: true };
   }
 }
